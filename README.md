@@ -4,10 +4,10 @@
 </div>
 
 ## Table of Contents
-* [Jump to Advanced Usage](#advanced-section)
+* [Distro](#distro)
 
 ---
 
 <!-- You can add an id to any tag or heading -->
-<h2 id="advanced-section">Advanced Usage</h2>
+<h2 id="distro">Distro</h2>
 Content goes here...
