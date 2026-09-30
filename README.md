@@ -1,11 +1,17 @@
 # Hacking Guide
 
-## Typewriter
-
-[▶️ Play typewriter-cameroncodesstuff.mp4](videos/typewriter-cameroncodesstuff.mp4)
+Welcome to the Hacking Guide repository! Below you will find demonstrations of various video effects and guides.
 
 ## Videos
 
-[▶️ Play pixelate-hacking-guide.mp4](videos/pixelate-hacking-guide.mp4)
+### Pixelate Hacking Guide
+<video width="100%" controls autoplay loop muted>
+  <source src="videos/pixelate-hacking-guide.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-[▶️ Play typewriter-cameroncodesstuff.mp4](videos/typewriter-cameroncodesstuff.mp4)
+### Typewriter Effect
+<video width="100%" controls autoplay loop muted>
+  <source src="videos/typewriter-cameroncodesstuff.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
