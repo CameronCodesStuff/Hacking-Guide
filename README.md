@@ -1,6 +1,8 @@
 <div align="center">
 
-![Typewriter Effect](./assets/typewriter-cameroncodesstuff.gif)
-![Pixelate Hacking Guide](./assets/pixelate-hacking-guide.gif)
+<p float="center">
+  <img src="./assets/typewriter-cameroncodesstuff.gif" width="48%" />
+  <img src="./assets/pixelate-hacking-guide.gif" width="48%" />
+</p>
 
 </div>
