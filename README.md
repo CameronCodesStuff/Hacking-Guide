@@ -8,7 +8,6 @@
 
 ---
 
-<!-- You can add an id to any tag or heading -->
 <h2 id="distro">Distro</h2>
 
 ### Linux Distros for Hacking
@@ -113,5 +112,3 @@ Ubuntu is a general-purpose Linux distro rather than a dedicated hacking distro.
 | **Kali Linux** | Pen Testing          |          Moderate |      Good |
 | **BlackArch**  | Security Research    |               Low |  Moderate |
 | **Ubuntu**     | General Computing    |         Excellent | Excellent |
-
-> **Remember:** Only use security tools on systems you own or have explicit permission to test. Keep the hacking to your own lab, innit.
