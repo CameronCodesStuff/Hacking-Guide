@@ -1,6 +1,7 @@
 <div align="center">
 
-<p><img src="./assets/typewriter-cameroncodesstuff.gif" /></p>
-<p><img src="./assets/pixelate-hacking-guide.gif" /></p>
+<img src="./assets/typewriter-cameroncodesstuff.gif" style="margin-bottom: 40px;" />
+
+<img src="./assets/pixelate-hacking-guide.gif" />
 
 </div>
