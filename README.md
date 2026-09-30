@@ -1,390 +1,495 @@
 <div align="center">
   <img src="./assets/typewriter-cameroncodesstuff.gif" alt="Typewriter Animation" />
 
-  <h1>Hacking Guide</h1>
+  <h1>Hacking & Cybersecurity Guide</h1>
 
   <p>
-    A beginner-friendly guide to Linux, cybersecurity, penetration testing,
-    networking, web security, wireless security, scripting and security labs.
+    A beginner-friendly guide to Linux, networking, programming,
+    cybersecurity, penetration testing, web security, wireless security,
+    digital forensics, reverse engineering and defensive security.
   </p>
 </div>
 
 ---
 
-## Table of Contents
+# Table of Contents
 
 * [About](#about)
 * [Important: Read This First](#important-read-this-first)
-* [What You Will Learn](#what-you-will-learn)
-* [Distro](#distro)
+* [How to Use This Guide](#how-to-use-this-guide)
+* [Cybersecurity Fundamentals](#cybersecurity-fundamentals)
+* [Computer Fundamentals](#computer-fundamentals)
+* [Linux](#linux)
 
-  * [ParrotOS](#parrotos)
-  * [Kali Linux](#kali-linux)
-  * [BlackArch](#blackarch)
-  * [Ubuntu](#ubuntu)
-  * [Quick Comparison](#quick-comparison)
-* [Setting Up a Hacking Lab](#setting-up-a-hacking-lab)
-* [Linux Fundamentals](#linux-fundamentals)
-* [Networking Fundamentals](#networking-fundamentals)
+  * [Choosing a Distro](#choosing-a-distro)
+  * [Linux Filesystem](#linux-filesystem)
+  * [Users and Groups](#users-and-groups)
+  * [Permissions](#permissions)
+  * [Processes](#processes)
+  * [Services](#services)
+  * [Packages](#packages)
+  * [Logs](#logs)
 * [Bash](#bash)
-* [Python for Cybersecurity](#python-for-cybersecurity)
+* [Networking](#networking)
+
+  * [IP Addresses](#ip-addresses)
+  * [MAC Addresses](#mac-addresses)
+  * [Ports](#ports)
+  * [TCP and UDP](#tcp-and-udp)
+  * [DNS](#dns)
+  * [DHCP](#dhcp)
+  * [NAT](#nat)
+  * [Firewalls](#firewalls)
+  * [HTTP and HTTPS](#http-and-https)
+  * [Wireshark](#wireshark)
+* [Programming](#programming)
+
+  * [Python](#python)
+  * [JavaScript](#javascript)
+  * [SQL](#sql)
+  * [Git and GitHub](#git-and-github)
+* [Lab Setup](#lab-setup)
 * [Reconnaissance](#reconnaissance)
 * [Scanning and Enumeration](#scanning-and-enumeration)
 * [Web Security](#web-security)
 
-  * [HTTP](#http)
+  * [HTTP](#web-http)
   * [Cookies and Sessions](#cookies-and-sessions)
+  * [Authentication](#authentication)
+  * [Authorisation](#authorisation)
   * [XSS](#xss)
   * [SQL Injection](#sql-injection)
+  * [CSRF](#csrf)
+  * [SSRF](#ssrf)
+  * [Path Traversal](#path-traversal)
+  * [File Upload Security](#file-upload-security)
+  * [Security Headers](#security-headers)
+  * [API Security](#api-security)
+  * [JWT](#jwt)
   * [Burp Suite](#burp-suite)
 * [Wireless Security](#wireless-security)
 
-  * [Wireless Basics](#wireless-basics)
+  * [WiFi Fundamentals](#wifi-fundamentals)
+  * [WPA2 and WPA3](#wpa2-and-wpa3)
+  * [Monitor Mode](#monitor-mode)
   * [Aircrack-ng](#aircrack-ng)
   * [Airgeddon](#airgeddon)
   * [Fern WiFi Cracker](#fern-wifi-cracker)
+  * [Wireless Lab](#wireless-lab)
 * [Cryptography](#cryptography)
-* [Windows and Active Directory](#windows-and-active-directory)
+* [Password Security](#password-security)
+* [Windows](#windows)
+* [Active Directory](#active-directory)
+* [PowerShell](#powershell)
+* [OSINT](#osint)
+* [Vulnerability Management](#vulnerability-management)
+* [Threat Modelling](#threat-modelling)
+* [MITRE ATT&CK](#mitre-attck)
+* [Digital Forensics](#digital-forensics)
+* [Malware Analysis](#malware-analysis)
+* [YARA](#yara)
+* [Sigma](#sigma)
 * [Defensive Security](#defensive-security)
+* [SIEM](#siem)
+* [Incident Response](#incident-response)
 * [Reverse Engineering](#reverse-engineering)
+* [Assembly](#assembly)
 * [Binary Exploitation](#binary-exploitation)
+* [Cloud Security](#cloud-security)
+* [Container Security](#container-security)
+* [Mobile Security](#mobile-security)
+* [IoT Security](#iot-security)
 * [CTFs and Practice](#ctfs-and-practice)
-* [Useful Tools](#useful-tools)
+* [Projects](#projects)
+* [Tool Reference](#tool-reference)
+* [Troubleshooting](#troubleshooting)
+* [Common Beginner Mistakes](#common-beginner-mistakes)
 * [Learning Roadmap](#learning-roadmap)
+* [Glossary](#glossary)
 * [Final Advice](#final-advice)
 
 ---
 
-## About
+# About
 
-This repository is my collection of notes, explanations and resources for learning cybersecurity.
+This repository is my collection of notes and resources for learning cybersecurity.
 
-The goal is simple:
+The goal is pretty simple:
 
-> Learn how computers, networks and applications work, understand how they can be attacked, and learn how to secure them.
+> Understand how computers work, understand how security problems happen, learn how to find them in controlled environments, and learn how to fix them.
 
-This guide is written for people who are starting out.
+Cybersecurity is a massive subject.
 
-You do not need to know everything before beginning. In fact, you probably won't.
+You can spend years specialising in one tiny area, so don't worry about knowing everything.
 
-Cybersecurity is a massive field. There are people who spend years focusing on one tiny part of it, so don't worry if some of the advanced sections look confusing at first.
+This guide starts with the fundamentals and gradually moves towards more advanced subjects.
 
-Start with the basics, practise in safe environments, and slowly build from there.
+You don't need to follow every section.
+
+If web security interests you, go deeper into web security.
+
+If reverse engineering interests you, follow that path.
+
+If defensive security interests you, spend more time learning detection and incident response.
+
+The important thing is understanding what you're doing rather than collecting tools.
 
 ---
 
-## Important: Read This First
+# Important: Read This First
 
-Everything in this guide should be used for:
+Everything here is intended for **legal and authorised security testing**.
+
+Use these techniques against:
 
 * Your own computers
 * Your own networks
 * Virtual machines
 * Intentionally vulnerable applications
-* CTFs
-* Cybersecurity training platforms
+* CTF challenges
+* Security training platforms
 * Systems where you have explicit permission to test
 
-Do not use security tools against random websites, WiFi networks, servers or devices simply because they are visible.
+Do not scan or attack random websites, servers, WiFi networks or devices because they happen to be accessible.
 
-Having a tool does not mean you have permission to use it against someone else's system.
+A publicly accessible system is not automatically a system you're allowed to test.
 
-If you are learning, the easiest option is to build your own lab.
+For wireless testing especially, use a dedicated network and equipment you control.
 
-That way you can break things, fix them, break them again and learn without accidentally causing someone else problems.
+A good cybersecurity learner should be able to experiment without putting other people's systems, data or networks at risk.
 
 ---
 
-# What You Will Learn
+# How to Use This Guide
 
-This guide covers:
+Don't try to memorise everything.
+
+For each subject, use this process:
 
 ```text
-Linux
-  |
-  +-- Bash
-  |
-  +-- Networking
-  |
-  +-- Python
-  |
-  +-- Reconnaissance
-  |
-  +-- Enumeration
-  |
-  +-- Web Security
-  |
-  +-- Wireless Security
-  |
-  +-- Cryptography
-  |
-  +-- Windows / Active Directory
-  |
-  +-- Defensive Security
-  |
-  +-- Reverse Engineering
-  |
-  +-- Binary Exploitation
-  |
-  +-- CTFs
+Learn the concept
+       |
+       v
+Understand how it works
+       |
+       v
+Practise in a lab
+       |
+       v
+Break something intentionally
+       |
+       v
+Figure out why it broke
+       |
+       v
+Fix it
+       |
+       v
+Document what happened
 ```
 
-You don't have to learn all of this.
+If you're copying commands without understanding them, slow down.
 
-Cybersecurity has loads of different career paths. Someone interested in web applications does not necessarily need to become an expert in binary exploitation.
+Ask yourself:
+
+```text
+What does this command do?
+
+Why am I running it?
+
+What information does it give me?
+
+What assumptions does it make?
+
+What could go wrong?
+
+How would I defend against the underlying problem?
+```
+
+That's where the actual learning happens.
 
 ---
 
-# Distro
+# Cybersecurity Fundamentals
 
-## Linux Distros for Hacking
+Before getting into tools, understand some basic security concepts.
 
-There are loads of Linux distributions that can be used for cybersecurity.
+## Asset
 
-Some are specifically designed for penetration testing, while others are normal desktop distributions that you can configure yourself.
+Something worth protecting.
 
-There isn't one magical "hacking OS".
+Examples:
 
-The operating system is just the environment.
+* A laptop
+* A database
+* A user account
+* Customer information
+* Source code
+* A server
 
-Understanding Linux is much more important than the distro you choose.
+## Threat
+
+Something that could cause harm.
+
+A threat could be:
+
+* Malware
+* A compromised account
+* A malicious insider
+* A vulnerable application
+* A misconfigured service
+
+## Vulnerability
+
+A weakness that could be abused.
+
+## Risk
+
+Risk is about the potential impact and likelihood associated with a threat exploiting a weakness.
+
+A vulnerability doesn't automatically mean a catastrophic incident will happen.
+
+Context matters.
+
+## Attack Surface
+
+The attack surface is the collection of places where a system can potentially be interacted with.
+
+For a web application this might include:
+
+```text
+Website
+API
+Login page
+File upload
+Admin panel
+Third-party integrations
+```
+
+Reducing unnecessary attack surface is an important security principle.
 
 ---
+
+# Computer Fundamentals
+
+Cybersecurity gets much easier when you understand computers.
+
+Learn these concepts before going deep into exploitation:
+
+* CPU
+* RAM
+* Storage
+* Processes
+* Threads
+* Operating systems
+* Kernels
+* Filesystems
+* System calls
+* Networking
+* Compilers
+* Interpreters
+* Machine code
+
+---
+
+## CPU
+
+The CPU executes instructions.
+
+At a very simplified level:
+
+```text
+Instruction
+    |
+    v
+CPU
+    |
+    +-- Registers
+    |
+    +-- Arithmetic
+    |
+    +-- Control
+```
+
+You don't need to become an electrical engineer.
+
+You just need to understand what the CPU is doing with the instructions a program gives it.
+
+---
+
+## RAM
+
+RAM is working memory.
+
+Running programs use memory for things such as:
+
+* Code
+* Variables
+* Objects
+* Buffers
+* Stack data
+* Heap data
+
+This becomes extremely important when learning reverse engineering and binary exploitation.
+
+---
+
+## Processes
+
+A process is a running instance of a program.
+
+A process normally has things such as:
+
+* Memory
+* Permissions
+* Environment
+* Open files
+* Network connections
+* A user identity
+
+Security tools often inspect processes to understand what a system is doing.
+
+---
+
+## Kernel vs User Space
+
+The kernel is responsible for managing core system resources.
+
+Normal applications generally run in user space.
+
+```text
+User Applications
+       |
+       v
+System Calls
+       |
+       v
+Kernel
+       |
+       v
+Hardware
+```
+
+This separation is an important security boundary.
+
+---
+
+# Linux
+
+Linux is one of the most useful operating systems to learn for cybersecurity.
+
+You don't need to know every command.
+
+You need to understand the system.
+
+---
+
+# Choosing a Distro
 
 ## ParrotOS
 
-<details>
-<summary>Read about ParrotOS</summary>
+ParrotOS is Debian-based and focuses on security, privacy, development and everyday computing.
 
-### What is it?
+### Strengths
 
-ParrotOS is a Debian-based Linux distribution designed around security, privacy, development and everyday use.
+* Security tools
+* Debian ecosystem
+* Good desktop experience
+* Useful for security labs
+* Suitable for everyday use
 
-The Security Edition comes with a large collection of security tools already installed.
+### Weaknesses
 
-Parrot also has a Home Edition aimed more towards everyday computing and development.
-
-### Pros
-
-* Large collection of security tools
-* Debian-based
-* Good for learning Linux
-* Can be used as a normal desktop
-* Security and privacy focused
-* Works well in virtual machines
-* Good choice for people who want security tools without giving up normal desktop functionality
-
-### Cons
-
-* Some tools take time to understand
-* You still need to understand Linux
-* Having hundreds of tools installed does not mean you know how to use them
-* Some tools require additional configuration
+* Some tools need configuration
+* Security tools can be confusing at first
+* Installing the tools doesn't teach you what they do
 
 ### Why I use it
 
-I use ParrotOS because it gives me a comfortable Linux desktop while still giving me access to a large security toolkit.
-
-It feels less like I'm using a computer that exists purely for penetration testing and more like I'm using a normal computer that happens to have a lot of security tools available.
-
-</details>
+I like ParrotOS because it gives me a practical desktop while still having a security-focused environment.
 
 ---
 
 ## Kali Linux
 
-<details>
-<summary>Read about Kali Linux</summary>
+Kali Linux is a Debian-based distribution designed around penetration testing and security auditing.
 
-### What is it?
+### Strengths
 
-Kali Linux is a Debian-based Linux distribution designed specifically for penetration testing and security auditing.
+* Large security toolkit
+* Extensive documentation
+* Popular in training
+* Good virtual-machine support
 
-It is extremely common in cybersecurity labs, CTFs and professional penetration-testing environments.
+### Weaknesses
 
-### Pros
-
-* Huge security-tool ecosystem
-* Excellent documentation
-* Very popular in cybersecurity
-* Lots of tutorials and learning material
-* Excellent support for virtual machines
-* Designed specifically around security work
-
-### Cons
-
-* Can be confusing for complete Linux beginners
+* Can be overwhelming for beginners
 * Many tools have specialised purposes
-* Not every tool is useful to every person
-* Installing Kali does not automatically teach you penetration testing
+* Requires Linux knowledge
 
-### Important
-
-Kali's own documentation assumes some previous Linux knowledge.
-
-Don't feel like you need Kali just because someone online says "real hackers use Kali".
-
-Use the distro that helps you learn.
-
-</details>
+Kali is useful, but you don't need it to learn cybersecurity.
 
 ---
 
 ## BlackArch
 
-<details>
-<summary>Read about BlackArch</summary>
+BlackArch is an Arch Linux-based security distribution.
 
-### What is it?
+### Strengths
 
-BlackArch is an Arch Linux-based distribution focused heavily on penetration testing and security research.
-
-It provides a very large collection of security tools.
-
-### Pros
-
-* Massive tool collection
+* Huge tool collection
 * Highly customisable
-* Arch Linux ecosystem
-* Excellent for experienced Linux users
-* Good for security research
+* Arch ecosystem
 
-### Cons
+### Weaknesses
 
-* Steep learning curve
+* Steeper learning curve
 * Requires more Linux knowledge
-* Configuration can take time
-* Probably unnecessary for someone who is completely new to Linux
+* Can involve more configuration
 
-### Who is it for?
-
-I'd mainly recommend looking at BlackArch once you are already comfortable with Linux and Arch.
-
-There is no point making life harder just for the sake of it.
-
-</details>
+It makes more sense once you're already comfortable with Linux.
 
 ---
 
 ## Ubuntu
 
-<details>
-<summary>Read about Ubuntu</summary>
-
-### What is it?
-
 Ubuntu is a general-purpose Linux distribution.
 
-It isn't specifically a hacking distro, but that doesn't make it useless for cybersecurity.
+It doesn't come with a huge security toolkit by default.
 
-In fact, learning cybersecurity on a normal Linux installation can be useful because you learn how to install and configure the tools yourself.
+That's not necessarily a bad thing.
 
-### Pros
-
-* Beginner friendly
-* Huge community
-* Lots of documentation
-* Great for programming
-* Great for everyday use
-* Easy to turn into a security lab
-
-### Cons
-
-* Security tools aren't installed by default
-* You need to configure your environment
-* Less security-focused out of the box
-
-### Who is it for?
-
-If you're completely new to Linux, Ubuntu can be a great starting point.
-
-You can learn Linux first and then move to Parrot or Kali later if you actually need them.
-
-</details>
+Learning how to install and configure your own tools can actually teach you more about Linux.
 
 ---
 
 ## Quick Comparison
 
-| Distro         | Main Focus           | Beginner Friendly |   Security Tools | Daily Use |
-| -------------- | -------------------- | ----------------: | ---------------: | --------: |
-| **ParrotOS**   | Security + daily use |              High |        Extensive | Excellent |
-| **Kali Linux** | Penetration testing  |          Moderate |        Extensive |      Good |
-| **BlackArch**  | Security research    |               Low |        Extensive |  Moderate |
-| **Ubuntu**     | General computing    |         Excellent | Install yourself | Excellent |
+| Distro     | Main Focus          | Beginner Friendly |   Security Tools | Daily Use |
+| ---------- | ------------------- | ----------------: | ---------------: | --------: |
+| ParrotOS   | Security + desktop  |              High |        Extensive | Excellent |
+| Kali Linux | Penetration testing |          Moderate |        Extensive |      Good |
+| BlackArch  | Security research   |               Low |        Extensive |  Moderate |
+| Ubuntu     | General computing   |         Excellent | Install yourself | Excellent |
 
 ---
 
-# Setting Up a Hacking Lab
+# Linux Filesystem
 
-Before doing anything serious, build a lab.
+Important directories:
 
-A simple setup could look like this:
+| Directory | Purpose                        |
+| --------- | ------------------------------ |
+| `/`       | Root of the filesystem         |
+| `/home`   | User home directories          |
+| `/etc`    | Configuration                  |
+| `/var`    | Variable data and logs         |
+| `/tmp`    | Temporary files                |
+| `/usr`    | Applications and libraries     |
+| `/dev`    | Device files                   |
+| `/proc`   | Process and kernel information |
 
-```text
-Your Computer
-      |
-      +----------------------+
-      |                      |
-      v                      v
-Security VM              Target VM
-      |                      |
- Parrot / Kali       Intentionally vulnerable
-                         application
-```
-
-Your security VM is where you practise.
-
-Your target VM is where you attack.
-
-Keep the lab isolated and only use intentionally vulnerable targets.
-
----
-
-## Virtualisation
-
-Common virtualisation platforms include:
-
-* VirtualBox
-* VMware
-* Hyper-V
-* UTM
-* Proxmox
-
-A VM gives you a safe environment that you can destroy and rebuild whenever you want.
-
-That's extremely useful when learning.
-
----
-
-## Lab Targets
-
-Good training targets include intentionally vulnerable applications and machines designed for security education.
-
-Examples include:
-
-* OWASP Juice Shop
-* DVWA
-* Metasploitable
-* WebGoat
-* CTF machines
-* Purpose-built training environments
-
----
-
-# Linux Fundamentals
-
-If you want to understand hacking, learn Linux.
-
-You don't need to memorise hundreds of commands.
-
-You need to understand what the commands are actually doing.
-
----
-
-## Files and Directories
-
-Some basic commands:
+Useful commands:
 
 ```bash
 pwd
@@ -397,49 +502,34 @@ mv
 rm
 cat
 less
+find
 ```
-
-For example:
-
-```bash
-pwd
-```
-
-shows your current directory.
-
-```bash
-ls
-```
-
-shows the files in the current directory.
-
-```bash
-cd Documents
-```
-
-moves into the Documents directory.
 
 ---
 
-## Permissions
+# Users and Groups
 
-Linux permissions determine who can read, write and execute files.
+Linux uses users and groups to control access.
 
-You will commonly see something like:
+Useful commands:
 
-```text
--rwxr-xr--
+```bash
+whoami
+id
+groups
 ```
 
-The three main permission groups are:
+The security principle to remember is:
 
-```text
-Owner
-Group
-Others
-```
+> Give users and programs only the permissions they actually need.
 
-And the main permissions are:
+This is called **least privilege**.
+
+---
+
+# Permissions
+
+Linux permissions normally contain:
 
 ```text
 r = read
@@ -447,107 +537,179 @@ w = write
 x = execute
 ```
 
----
+For:
 
-## Users and Groups
-
-Learn:
-
-```bash
-whoami
-id
-groups
-sudo
-su
+```text
+owner
+group
+others
 ```
 
-Understanding users and privileges becomes extremely important later.
+Example:
 
-A huge amount of security comes down to one question:
+```text
+-rwxr-xr--
+```
 
-> "What is this user actually allowed to do?"
+The owner can read, write and execute.
+
+The group can read and execute.
+
+Everyone else can read.
 
 ---
 
-## Processes
+# Processes
 
-Useful commands include:
+Useful commands:
 
 ```bash
 ps
 top
 htop
 kill
-systemctl
 ```
 
-Processes are simply programs that are currently running.
+When investigating a system, useful questions include:
 
-Understanding processes helps with troubleshooting, system administration and security investigations.
+* Which processes are running?
+* Who owns them?
+* What files do they access?
+* What network connections do they have?
+* Are they expected?
+
+---
+
+# Services
+
+Services run in the background and provide functionality.
+
+On many Linux systems:
+
+```bash
+systemctl status <service>
+```
+
+can show service status.
+
+Every unnecessary service can increase the attack surface.
+
+---
+
+# Packages
+
+Debian-based distributions commonly use:
+
+```bash
+apt
+```
+
+Arch-based distributions commonly use:
+
+```bash
+pacman
+```
+
+Be careful about what repositories and packages you trust.
+
+Don't install random scripts from the internet with administrator privileges.
+
+---
+
+# Logs
+
+Linux logs are often stored under:
+
+```text
+/var/log
+```
+
+Logs can contain:
+
+* Authentication events
+* Service failures
+* Application activity
+* Network events
+* System errors
+
+Learning to read logs is useful for both administration and security investigations.
 
 ---
 
 # Bash
 
-Bash is the default shell on many Linux systems.
+Bash is a shell commonly used on Linux.
 
-Learning Bash lets you automate repetitive tasks.
+Learn:
 
-Start with:
+* Commands
+* Variables
+* Pipes
+* Redirection
+* Conditions
+* Loops
+* Functions
+* Exit codes
+* Environment variables
 
-```bash
-echo
-variables
-if statements
-loops
-functions
-pipes
-redirection
-```
-
-For example:
+Example:
 
 ```bash
 cat access.log | grep "404"
 ```
 
-This takes the contents of a log file and searches it for HTTP 404 responses.
-
-That's the kind of simple automation that becomes extremely useful in security.
+This searches a log for HTTP 404 responses.
 
 ---
 
-# Networking Fundamentals
+## Bash Safety
 
-Before learning penetration testing, learn networking.
+Be particularly careful with:
 
-Seriously.
+```text
+eval
+sudo
+rm
+curl | bash
+Unquoted variables
+Commands constructed from user input
+```
 
-If you don't understand networking, security tools will eventually just look like magic commands.
+Never blindly execute commands you found online.
 
-They aren't magic.
-
-They're doing networking.
+Read them first.
 
 ---
 
-## IP Addresses
+# Networking
 
-An IP address identifies a device on a network.
+Networking is one of the most important foundations in cybersecurity.
 
-Example:
+If networking doesn't make sense, security tools can look like random wizardry.
+
+They're not.
+
+They're interacting with networks.
+
+---
+
+# IP Addresses
+
+IPv4 addresses look like:
 
 ```text
 192.168.1.20
 ```
 
-IPv4 addresses contain four numbers separated by dots.
+IPv6 uses hexadecimal notation and provides a much larger address space.
 
-IPv6 uses a different format and provides a much larger address space.
+An IP address identifies a network endpoint.
+
+It does not automatically identify a human being.
 
 ---
 
-## MAC Addresses
+# MAC Addresses
 
 A MAC address identifies a network interface at the link layer.
 
@@ -557,151 +719,431 @@ Example:
 00:11:22:33:44:55
 ```
 
-MAC addresses are commonly associated with Ethernet and WiFi interfaces.
+---
+
+# Ports
+
+Ports identify services on a host.
+
+Common examples:
+
+| Port | Typical Service |
+| ---: | --------------- |
+|   22 | SSH             |
+|   53 | DNS             |
+|   80 | HTTP            |
+|  443 | HTTPS           |
+|   25 | SMTP            |
+|  445 | SMB             |
+
+An open port isn't automatically a vulnerability.
+
+It means something is listening.
+
+You still need to understand what that service is and how it is configured.
 
 ---
 
-## Ports
+# TCP and UDP
 
-A port helps identify a network service.
+TCP is connection-oriented and provides reliable delivery.
 
-Examples:
+UDP is connectionless and has less protocol overhead.
+
+Different applications choose different protocols depending on what they need.
+
+---
+
+# DNS
+
+DNS translates names into network information.
+
+Conceptually:
 
 ```text
-22   SSH
-53   DNS
-80   HTTP
-443  HTTPS
-```
-
-A port being open does not automatically mean a machine is vulnerable.
-
-It simply means something is listening there.
-
----
-
-## TCP and UDP
-
-TCP focuses on reliable, connection-oriented communication.
-
-UDP is connectionless and has less overhead.
-
-You don't need to memorise every detail immediately.
-
-Just understand why different protocols exist and when they are used.
-
----
-
-## DNS
-
-DNS translates names into addresses.
-
-For example:
-
-```text
-example.com
-      |
-      v
+example.test
+     |
+     v
+DNS
+     |
+     v
 IP address
 ```
 
-Useful tools include:
+Useful commands:
 
 ```bash
-dig
-nslookup
-host
+dig example.test
+nslookup example.test
+host example.test
 ```
 
 ---
 
-## HTTP and HTTPS
+# DHCP
 
-HTTP is the protocol used by the web.
+DHCP allows devices to obtain network configuration automatically.
 
-HTTPS is HTTP protected using TLS.
+A typical device may receive:
 
-Understanding HTTP is extremely important if you want to learn web security.
+* IP address
+* Subnet mask
+* Default gateway
+* DNS server
 
 ---
 
-## Useful Networking Commands
+# NAT
 
-```bash
-ip
-ss
-ping
-traceroute
-curl
-dig
-nslookup
-tcpdump
+Network Address Translation allows networks to translate between address spaces.
+
+A common home setup looks like:
+
+```text
+Laptop: 192.168.1.20
+Phone:  192.168.1.21
+              |
+              v
+           Router
+              |
+              v
+           Internet
 ```
+
+The router handles traffic between the private network and the internet.
+
+---
+
+# Firewalls
+
+A firewall controls network traffic according to rules.
+
+Rules might consider:
+
+* Source
+* Destination
+* Port
+* Protocol
+* Interface
+* Application
+
+A firewall is only as good as its configuration.
+
+---
+
+# HTTP and HTTPS
+
+HTTP is the protocol used by web applications.
+
+HTTPS is HTTP protected with TLS.
+
+A basic flow:
+
+```text
+Browser
+   |
+   | HTTP request
+   v
+Web Server
+   |
+   | HTTP response
+   v
+Browser
+```
+
+Understanding this flow is essential for web security.
+
+---
+
+# Wireshark
+
+Wireshark allows you to inspect captured network traffic.
+
+Use it on your own lab traffic.
+
+Learn to identify:
+
+* TCP handshakes
+* DNS queries
+* HTTP requests
+* TLS traffic
+* Source and destination addresses
+* Ports
+* Protocols
+
+Don't just stare at packets.
+
+Ask what the packet means in the context of the application.
+
+---
+
+# Programming
+
+You don't need to become a software engineer.
+
+But understanding code makes cybersecurity significantly easier.
+
+Learn:
+
+* Python
+* Bash
+* JavaScript basics
+* HTML basics
+* SQL
+* C basics
+
+---
+
+# Python
+
+Python is useful for:
+
+* Automation
+* Log parsing
+* HTTP
+* File analysis
+* Data processing
+* Security utilities
+* CTF challenges
+
+---
+
+## Python Basics
+
+Learn:
+
+```text
+Variables
+Strings
+Lists
+Dictionaries
+Loops
+Functions
+Exceptions
+Files
+Modules
+JSON
+Regular expressions
+```
+
+Example:
+
+```python
+with open("access.log", "r", encoding="utf-8") as file:
+    for line in file:
+        if "404" in line:
+            print(line.strip())
+```
+
+Simple scripts like this can remove repetitive manual work.
+
+---
+
+# JavaScript
+
+JavaScript is especially important for web security.
+
+Learn:
+
+* Variables
+* Functions
+* Objects
+* Arrays
+* DOM
+* Events
+* Fetch
+* JSON
+* Browser storage
+
+Understanding JavaScript makes XSS and DOM-based vulnerabilities much easier to understand.
+
+---
+
+# SQL
+
+SQL is used to interact with relational databases.
+
+Basic concepts:
+
+```sql
+SELECT
+FROM
+WHERE
+INSERT
+UPDATE
+DELETE
+JOIN
+ORDER BY
+GROUP BY
+```
+
+A simple query:
+
+```sql
+SELECT username FROM users;
+```
+
+The security lesson is particularly important:
+
+> SQL should treat user input as data, not executable query structure.
+
+This is why parameterised queries are so important.
+
+---
+
+# Git and GitHub
+
+Git is used to track code changes.
+
+Learn:
+
+```text
+repositories
+commits
+branches
+merges
+pull requests
+```
+
+Security topics include:
+
+* SSH keys
+* Personal access tokens
+* Secret scanning
+* Dependency security
+* Repository permissions
+* Branch protection
+
+Never commit:
+
+```text
+Passwords
+API keys
+Private keys
+Cloud credentials
+Session tokens
+Database credentials
+.env files containing secrets
+```
+
+A `.gitignore` file helps prevent accidental commits, but it doesn't erase secrets that have already entered Git history.
+
+---
+
+# Lab Setup
+
+A lab gives you somewhere safe to experiment.
+
+A simple setup:
+
+```text
+                    Your Computer
+                         |
+                  Virtualisation
+                         |
+              +----------+----------+
+              |                     |
+              v                     v
+        Security VM             Target VM
+       Parrot / Kali       Vulnerable application
+```
+
+Useful virtualisation platforms:
+
+* VirtualBox
+* VMware
+* Hyper-V
+* UTM
+* Proxmox
+
+---
+
+## Useful Lab Targets
+
+Consider:
+
+* OWASP Juice Shop
+* DVWA
+* WebGoat
+* Metasploitable
+* CTF machines
+* Purpose-built vulnerable VMs
+
+---
+
+## Lab Rules
+
+1. Keep vulnerable systems isolated.
+2. Take snapshots.
+3. Use fake accounts and test data.
+4. Never expose deliberately vulnerable systems publicly.
+5. Keep notes.
+6. Reset systems when necessary.
 
 ---
 
 # Reconnaissance
 
-Reconnaissance is the information-gathering stage.
+Recon means information gathering.
 
-The basic idea is:
+The basic idea:
 
-> Learn what you're dealing with before trying to test it.
+> Understand the target before testing it.
 
 There are two broad categories.
 
-### Passive Reconnaissance
+## Passive Recon
 
-You gather information without directly interacting with the target system.
+Information is gathered without directly probing the target.
 
 Examples:
 
+* Public documentation
 * Public DNS information
-* Public documents
-* Public technology information
-* Search engines
-* Publicly available records
+* Certificate transparency
+* Public code repositories
+* Public metadata
 
-### Active Reconnaissance
+## Active Recon
 
-You directly interact with the system.
+You directly interact with the target.
 
 Examples:
 
-* Service discovery
 * Port scanning
+* Service discovery
 * HTTP requests
 * Network enumeration
 
-Only perform active reconnaissance against systems you have permission to test.
+Active reconnaissance should only be performed with permission.
 
 ---
 
 # Scanning and Enumeration
 
-Scanning tells you what is available.
+Scanning tells you what exists.
 
-Enumeration goes a step further and tries to understand those services.
+Enumeration tries to understand what you found.
 
-For example:
+Example:
 
 ```text
-Scan
+Host
  |
- +-- Port 22 open
+ +-- 22/tcp
  |
- +-- Port 80 open
+ +-- 80/tcp
  |
- +-- Port 443 open
+ +-- 443/tcp
 ```
 
-You then investigate what those services actually are.
+You then investigate what those services are.
 
 ---
 
-## Nmap
+# Nmap
 
-Nmap is one of the most important tools to learn.
+Nmap is commonly used for network and service discovery.
 
 It can help identify:
 
@@ -711,48 +1153,69 @@ It can help identify:
 * Service versions
 * Operating-system information
 
-The important thing isn't memorising Nmap commands.
+The important part isn't memorising commands.
 
-Understand what the scan is telling you.
+It's understanding the output.
 
-Only scan systems you own or have permission to test.
+If you find an open service, ask:
+
+```text
+What is it?
+Why is it exposed?
+Who owns it?
+What version is it?
+Is it expected?
+What security controls protect it?
+```
+
+Only scan authorised systems.
 
 ---
 
 # Web Security
 
-Web applications are one of the most interesting areas of cybersecurity.
+Web security is one of the largest areas in cybersecurity.
 
-Before learning vulnerabilities, understand how websites actually work.
+Learn the web before learning web vulnerabilities.
+
+Recommended order:
+
+```text
+HTTP
+ |
+Cookies
+ |
+Sessions
+ |
+Authentication
+ |
+Authorisation
+ |
+Input handling
+ |
+XSS / SQL Injection
+ |
+Other vulnerabilities
+ |
+Secure development
+```
 
 ---
 
-# HTTP
+# Web HTTP
 
-A basic HTTP request looks conceptually like:
+An HTTP request contains things such as:
 
 ```text
-Client
-  |
-  | HTTP Request
-  v
-Server
-  |
-  | HTTP Response
-  v
-Client
+Method
+URL / path
+Headers
+Cookies
+Parameters
+Body
 ```
 
-A request can contain:
-
-* Method
-* URL
-* Headers
-* Cookies
-* Parameters
-* Body
-
-Common methods include:
+Common methods:
 
 ```text
 GET
@@ -762,15 +1225,33 @@ PATCH
 DELETE
 ```
 
+A response contains:
+
+```text
+Status code
+Headers
+Body
+```
+
+Common status codes:
+
+|    Code | Meaning                 |
+| ------: | ----------------------- |
+|     200 | Success                 |
+| 301/302 | Redirect                |
+|     400 | Bad request             |
+|     401 | Authentication required |
+|     403 | Forbidden               |
+|     404 | Not found               |
+|     500 | Server error            |
+
 ---
 
 # Cookies and Sessions
 
-Websites often need to remember who you are.
+Web applications often need to remember users.
 
-Cookies can help with this.
-
-For example:
+A simplified flow:
 
 ```text
 Login
@@ -779,13 +1260,56 @@ Login
 Server creates session
   |
   v
-Browser receives session cookie
+Browser receives cookie
   |
   v
-Browser sends cookie with future requests
+Browser sends cookie
+  |
+  v
+Server identifies session
 ```
 
-Understanding authentication and sessions is essential for understanding web vulnerabilities.
+Security depends on how sessions are generated, stored and validated.
+
+---
+
+# Authentication
+
+Authentication answers:
+
+> Who are you?
+
+Examples:
+
+* Password
+* MFA
+* Passkey
+* Certificate
+* Security token
+
+Good authentication also involves secure session management.
+
+---
+
+# Authorisation
+
+Authorisation answers:
+
+> What are you allowed to do?
+
+For example:
+
+```text
+Normal user
+    |
+    +-- View own profile
+
+Administrator
+    |
+    +-- Manage users
+```
+
+An application can have strong authentication and still have broken authorisation.
 
 ---
 
@@ -793,69 +1317,106 @@ Understanding authentication and sessions is essential for understanding web vul
 
 XSS stands for Cross-Site Scripting.
 
-The basic idea is that an attacker-controlled piece of input ends up being interpreted as JavaScript by another user's browser.
+It occurs when untrusted input reaches a browser in a way that causes it to be interpreted as active content.
 
-There are several types.
+The basic idea:
 
-### Reflected XSS
+```text
+Untrusted input
+      |
+      v
+Application
+      |
+      v
+Unsafe output
+      |
+      v
+Browser
+```
 
-The malicious input is immediately reflected in a response.
+---
 
-### Stored XSS
+## Reflected XSS
 
-The malicious content is stored by the application and later shown to users.
+The input is reflected into the immediate response.
 
-### DOM-based XSS
+---
 
-The vulnerability exists in client-side JavaScript and how it handles user-controlled data.
+## Stored XSS
+
+The input is stored by the application and later displayed to users.
+
+---
+
+## DOM-Based XSS
+
+The vulnerability exists in client-side JavaScript and how it processes attacker-controlled data.
 
 ---
 
 ## Why XSS Matters
 
-XSS can potentially allow an attacker to perform actions in the context of another user's browser.
+Depending on the application, XSS can affect:
 
-The exact impact depends on the application and its security controls.
+* User actions
+* Application data
+* Session handling
+* Account security
+* Trust between users
 
-The best way to learn XSS is through intentionally vulnerable applications such as training labs.
+The exact impact depends on the application's design and security controls.
 
 ---
 
-## How to Prevent XSS
+## XSS Prevention
 
-Common defensive techniques include:
+Useful defences include:
 
 * Context-aware output encoding
+* Safe DOM APIs
 * Input validation where appropriate
-* Avoiding unsafe DOM APIs
 * Content Security Policy
 * Secure framework defaults
-* Proper handling of HTML, JavaScript and URL contexts
+* Correct handling of HTML and JavaScript contexts
 
-Don't think of XSS as simply "put JavaScript in a textbox".
-
-The real lesson is understanding how untrusted data moves through an application.
+Practise XSS in training applications, not random websites.
 
 ---
 
 # SQL Injection
 
-SQL injection happens when untrusted input is incorrectly included in SQL queries.
+SQL injection happens when untrusted input changes the meaning of a database query.
 
-A simplified vulnerable example might look like:
+A vulnerable pattern might conceptually look like:
 
 ```text
 SELECT * FROM users
 WHERE username = 'INPUT';
 ```
 
-If an application directly inserts user input into SQL, the user may be able to alter the meaning of the query.
+If input is inserted directly into the query, the database may interpret part of the input as SQL.
 
 ---
 
-## Why SQL Injection Matters
+## Why It Happens
 
-Depending on the application and database permissions, SQL injection can potentially affect:
+The underlying mistake is treating:
+
+```text
+Untrusted data
+```
+
+as:
+
+```text
+Trusted SQL structure
+```
+
+---
+
+## Potential Impact
+
+Depending on the application and database permissions, SQL injection can affect:
 
 * Authentication
 * Data confidentiality
@@ -863,56 +1424,252 @@ Depending on the application and database permissions, SQL injection can potenti
 * Database contents
 * Application behaviour
 
-The impact depends heavily on how the application is built.
+---
+
+## Prevention
+
+Use:
+
+* Parameterised queries
+* Prepared statements
+* Safe ORM APIs
+* Least-privilege database accounts
+* Appropriate input validation
+* Safe error handling
+
+The most important fix is separating query structure from user-controlled data.
 
 ---
 
-## How to Prevent SQL Injection
+# CSRF
 
-The most important defence is:
+Cross-Site Request Forgery involves tricking a user's browser into making an unwanted request to an application where the user is already authenticated.
 
-> Use parameterised queries / prepared statements.
+A simplified idea:
 
-Other useful controls include:
+```text
+Victim logged into application
+          |
+          v
+Malicious page
+          |
+          v
+Browser sends unwanted request
+          |
+          v
+Application
+```
 
-* Least-privilege database accounts
+Defences include:
+
+* CSRF tokens
+* SameSite cookies
+* Origin checking
+* Appropriate authentication design
+
+---
+
+# SSRF
+
+Server-Side Request Forgery happens when an application can be manipulated into making network requests chosen by an attacker.
+
+The important distinction is:
+
+```text
+Attacker
+   |
+   v
+Application
+   |
+   v
+Internal resource
+```
+
+The server makes the request rather than the attacker's browser.
+
+Potentially affected resources can include internal services or cloud metadata endpoints.
+
+Defences include:
+
+* Strict destination allowlists
+* Network segmentation
+* URL validation
+* Blocking access to sensitive internal ranges where appropriate
+* Egress controls
+
+---
+
+# Path Traversal
+
+Path traversal happens when user-controlled input is used to access files without being safely constrained.
+
+The security problem is essentially:
+
+```text
+User input
+    |
+    v
+File path
+    |
+    v
+Unexpected file
+```
+
+Defences include:
+
+* Avoiding direct filesystem paths from users
+* Canonicalising paths
+* Allowlisting files
+* Restricting application permissions
+* Running services with least privilege
+
+---
+
+# File Upload Security
+
+File uploads create an interesting attack surface.
+
+Applications need to consider:
+
+* File type
+* File size
+* File contents
+* File names
+* Storage location
+* Execution permissions
+* Malware scanning
+
+Never assume that checking a filename extension alone is enough.
+
+A safer architecture usually stores uploaded content separately from executable application code.
+
+---
+
+# Security Headers
+
+HTTP security headers can provide additional browser-side protections.
+
+Learn about:
+
+```text
+Content-Security-Policy
+Strict-Transport-Security
+X-Content-Type-Options
+Referrer-Policy
+Permissions-Policy
+```
+
+Headers are not magic.
+
+They should support a secure application design rather than compensate for vulnerable code.
+
+---
+
+# API Security
+
+APIs are a major part of modern applications.
+
+Learn:
+
+* REST
+* JSON
+* GraphQL
+* API keys
+* OAuth
+* OpenID Connect
+* JWT
+* Rate limiting
+* Authentication
+* Authorisation
 * Input validation
-* Safe ORM usage
-* Proper error handling
-* Security testing
 
-Do not rely on hiding database errors as your main defence.
+Common API security problems include:
+
+* Missing authorisation checks
+* Excessive data exposure
+* Weak authentication
+* Poor rate limiting
+* Predictable object identifiers
+* Unsafe input handling
+* Misconfigured CORS
+* Leaked secrets
+
+---
+
+# JWT
+
+JWT stands for JSON Web Token.
+
+A JWT commonly looks like:
+
+```text
+Header.Payload.Signature
+```
+
+The parts have different purposes.
+
+### Header
+
+Describes information about the token.
+
+### Payload
+
+Contains claims.
+
+### Signature
+
+Allows the recipient to verify that the token was signed correctly.
+
+JWTs are not automatically secure.
+
+Security depends on:
+
+* Algorithm handling
+* Key management
+* Expiration
+* Verification
+* Storage
+* Authorisation logic
+
+Never assume that simply decoding a JWT gives you permission to change it.
 
 ---
 
 # Burp Suite
 
-Burp Suite is a web security testing platform.
+Burp Suite is a platform for web security testing.
 
-It can help you understand and modify HTTP traffic between a browser and a web application.
+Important features include:
 
-Common features include:
+## Proxy
 
-* Proxy
-* Repeater
-* Intruder
-* Decoder
-* HTTP history
-* Site map
+Allows you to inspect HTTP traffic from your browser.
 
-If you're learning web security, Burp is worth learning properly.
+## Repeater
 
-Don't just copy random payloads from the internet.
+Allows you to resend and modify requests.
 
-Understand the request first.
+## HTTP History
+
+Shows requests that have passed through the proxy.
+
+## Decoder
+
+Helps inspect encoded data.
+
+## Intruder
+
+Provides automation for authorised testing.
+
+Automation can generate significant traffic, so use it carefully.
 
 ---
 
 # Wireless Security
 
-Wireless security is another large part of cybersecurity.
+Wireless security is about understanding how WiFi devices communicate and authenticate.
 
-Before using wireless tools, understand:
+Learn:
 
 * SSIDs
 * Access points
@@ -928,24 +1685,61 @@ Before using wireless tools, understand:
 * Monitor mode
 * Packet capture
 
-Only test networks you own or have explicit permission to assess.
+Only test wireless networks you control.
+
+---
+
+# WiFi Fundamentals
+
+A basic WiFi environment contains:
+
+```text
+Access Point
+     |
+     +-- Laptop
+     |
+     +-- Phone
+     |
+     +-- Test Device
+```
+
+The access point coordinates wireless communication.
+
+Security mechanisms protect authentication and traffic.
+
+---
+
+# WPA2 and WPA3
+
+WPA2 and WPA3 are security standards used by WiFi networks.
+
+The exact authentication and encryption mechanisms depend on the network configuration.
+
+The important learning topics are:
+
+* Authentication
+* Key establishment
+* Encryption
+* Protected management frames
+* Password security
+
+---
+
+# Monitor Mode
+
+Monitor mode allows compatible wireless hardware to observe wireless frames beyond normal client operation.
+
+Not every wireless adapter supports all required capabilities.
+
+Hardware and driver compatibility matters.
 
 ---
 
 # Aircrack-ng
 
-Aircrack-ng is a suite of tools for assessing WiFi security.
+Aircrack-ng is a suite of tools for wireless security assessment.
 
-It includes tools for areas such as:
-
-* Wireless monitoring
-* Packet capture
-* Wireless testing
-* Packet injection
-* Security assessment
-* Password auditing
-
-Some of its tools include:
+Common tools include:
 
 ```text
 airmon-ng
@@ -954,57 +1748,40 @@ aireplay-ng
 aircrack-ng
 ```
 
----
-
-## What the Tools Do
-
-<details>
-<summary>airmon-ng</summary>
+## airmon-ng
 
 Used to help manage wireless interfaces and monitor-mode configuration.
 
-Monitor mode allows a compatible wireless adapter to observe wireless frames in a way that normal managed mode does not.
+## airodump-ng
 
-</details>
+Used for wireless observation and packet capture.
 
-<details>
-<summary>airodump-ng</summary>
+## aireplay-ng
 
-Used for wireless packet capture and observing nearby wireless networks and clients in an authorised testing environment.
+Supports wireless frame injection and replay testing.
 
-</details>
+## aircrack-ng
 
-<details>
-<summary>aireplay-ng</summary>
+Can be used to audit captured wireless authentication material and assess password security.
 
-Used for wireless frame injection and replay testing.
+It does not magically crack every network.
 
-This should only be used against networks where you have explicit permission.
+Results depend on:
 
-</details>
-
-<details>
-<summary>aircrack-ng</summary>
-
-Used for auditing captured wireless authentication data and testing password security.
-
-It is not a magic button that instantly cracks every WiFi password.
-
-The results depend on the protocol, capture data, password strength and available resources.
-
-</details>
+* Wireless protocol
+* Captured data
+* Password strength
+* Available resources
 
 ---
 
 # Airgeddon
 
-Airgeddon is a wireless auditing framework that brings different wireless security tools and workflows together.
+Airgeddon is a wireless auditing framework that combines different tools and workflows.
 
-It can help automate parts of wireless security assessments.
+It can make certain lab workflows easier to navigate.
 
-It is useful for learning because it gives you a more guided interface around techniques that would otherwise involve several different tools.
-
-However, using a menu does not mean you understand what's happening underneath.
+However, using a menu does not replace understanding the underlying technique.
 
 If Airgeddon performs an action, learn what that action actually does.
 
@@ -1012,207 +1789,736 @@ If Airgeddon performs an action, learn what that action actually does.
 
 # Fern WiFi Cracker
 
-Fern WiFi Cracker is a graphical wireless security auditing tool.
+Fern WiFi Cracker provides a graphical interface for certain wireless auditing tasks.
 
-It provides a GUI for working with certain wireless assessment tasks.
+It can be useful for beginners who are still becoming comfortable with the command line.
 
-It can be useful for beginners who are still getting comfortable with the command line.
-
-Once you understand the concepts, learning the underlying tools is still worthwhile.
+Again, understand the concepts underneath the GUI.
 
 ---
 
-## Wireless Hardware
+# Wireless Lab
 
-A normal laptop's built-in WiFi adapter may not support every feature required for wireless security testing.
+A safe wireless lab might look like:
 
-Depending on what you're learning, you may need a compatible USB wireless adapter.
+```text
+Lab Router
+    |
+    +-- Test Laptop
+    |
+    +-- Test Phone
+    |
+    +-- Security VM
+```
 
-Look for hardware that supports the features required by your specific lab.
+Use equipment you own.
 
-Don't buy an adapter simply because a random video says it is "the best hacking WiFi adapter".
-
-Check chipset and driver compatibility first.
+Avoid experimenting on nearby networks.
 
 ---
 
 # Cryptography
 
-Cryptography is much bigger than "encryption".
+Cryptography is more than encryption.
 
-Learn the difference between:
+Separate these concepts:
 
 ```text
 Encoding
 Hashing
 Encryption
-Signing
+Digital Signatures
 ```
 
 ---
 
-## Encoding
+# Encoding
 
-Encoding changes data into another representation.
+Encoding changes representation.
 
-Example:
+Base64 is an example.
 
 ```text
+Text
+ |
+ v
 Base64
+ |
+ v
+Encoded text
 ```
 
-Base64 is not encryption.
+No secret key is required.
 
-Anyone can decode it.
+Therefore Base64 is not encryption.
 
 ---
 
-## Hashing
+# Hashing
 
-A hash function takes input and produces a fixed-size output.
+Hashing produces a fixed-size output from input.
 
 Example:
 
 ```text
-password
-   |
-   v
-hash function
-   |
-   v
-hash
+Input
+  |
+  v
+Hash function
+  |
+  v
+Hash
 ```
 
-Common examples include:
+Common general-purpose hash functions include SHA-256 and SHA-512.
+
+Password storage should use a password-specific hashing function such as Argon2id, bcrypt or scrypt rather than simply hashing a password with SHA-256.
+
+---
+
+# Encryption
+
+Encryption protects confidentiality.
+
+## Symmetric Encryption
+
+Uses a shared secret key.
 
 ```text
-SHA-256
-SHA-512
+Plaintext
+   |
+   v
+Encryption + Key
+   |
+   v
+Ciphertext
 ```
 
-MD5 and SHA-1 should not be treated as modern choices for security-sensitive cryptographic integrity.
+The recipient needs the appropriate key to decrypt it.
+
+## Asymmetric Encryption
+
+Uses a public/private key pair.
+
+This is heavily used in modern secure communications.
 
 ---
 
-## Encryption
+# Digital Signatures
 
-Encryption is designed to protect confidentiality.
+Digital signatures help verify:
 
-There are two major categories:
+* Authenticity
+* Integrity
 
-### Symmetric
-
-The same secret key is used for encryption and decryption.
-
-### Asymmetric
-
-A public/private key pair is used.
+They are used in areas such as software signing and secure communications.
 
 ---
 
-## Digital Signatures
+# TLS
 
-Digital signatures help prove:
+TLS protects network communications.
 
-* Who signed something
-* That the content has not been modified
-
-They are an important part of modern secure communication.
-
----
-
-# Windows and Active Directory
-
-If you want to work in cybersecurity professionally, learning Windows is important.
-
-Linux is not the entire world.
+HTTPS is HTTP over TLS.
 
 Learn:
 
-* Windows users
+* Certificates
+* Certificate authorities
+* Public/private keys
+* Handshakes
+* Authentication
+* Encryption
+
+---
+
+# Password Security
+
+Passwords should not normally be stored as plaintext.
+
+Learn:
+
+* Password length
+* Password uniqueness
+* Password managers
+* MFA
+* Passkeys
+* Password hashing
+* Salting
+* Rate limiting
+* Credential stuffing
+* Password spraying
+
+---
+
+## Password Hashing
+
+Applications should use an appropriate password-hashing algorithm.
+
+Common choices include:
+
+* Argon2id
+* bcrypt
+* scrypt
+
+A salt helps ensure that identical passwords don't simply result in identical stored values.
+
+---
+
+## Defensive Controls
+
+Useful controls include:
+
+* MFA
+* Strong passwords
+* Password managers
+* Rate limiting
+* Breached-password screening
+* Secure password hashing
+* Login monitoring
+
+---
+
+# Windows
+
+Windows is extremely important in enterprise cybersecurity.
+
+Learn:
+
+* Users
 * Groups
 * Permissions
+* Processes
 * Services
 * Registry
 * PowerShell
 * Event logs
-* Windows authentication
-* Active Directory
-* Kerberos
-* LDAP
-* SMB
-* Group Policy
-* Domain Controllers
+* Task Scheduler
+* Windows Defender
+* Windows networking
 
 ---
 
-## Active Directory
+# Active Directory
 
-Active Directory is Microsoft's directory service used to manage identities and resources in many Windows environments.
+Active Directory manages identities, computers, policies and resources in many Windows environments.
 
-A simple environment might look like:
+A simplified layout:
 
 ```text
 Domain Controller
        |
-       +-------- Users
+       +-- Users
        |
-       +-------- Groups
+       +-- Groups
        |
-       +-------- Computers
+       +-- Computers
        |
-       +-------- Policies
+       +-- Policies
 ```
 
-Understanding how these pieces interact is much more valuable than memorising attack commands.
+---
+
+# LDAP
+
+LDAP is used to access directory information.
+
+It can be used to query things such as:
+
+* Users
+* Groups
+* Computers
+* Directory attributes
+
+---
+
+# Kerberos
+
+Kerberos is an authentication protocol used heavily by Active Directory.
+
+At a high level, it uses tickets to allow users and services to authenticate without repeatedly sending passwords across the network.
+
+Learn:
+
+* Tickets
+* KDC
+* Authentication
+* Service principals
+* Trust relationships
+
+---
+
+# SMB
+
+SMB is commonly used for file and resource sharing on Windows networks.
+
+Learn:
+
+* Shares
+* Permissions
+* Authentication
+* Network access
+* Signing
+
+---
+
+# PowerShell
+
+PowerShell is useful for Windows administration and security analysis.
+
+Learn:
+
+* Objects
+* Pipelines
+* Variables
+* Functions
+* Modules
+* Event logs
+* Processes
+* Services
+
+PowerShell is not simply "Windows Bash".
+
+It works heavily with structured objects.
+
+---
+
+# OSINT
+
+OSINT stands for Open-Source Intelligence.
+
+It means gathering and analysing information from publicly available sources.
+
+Possible sources include:
+
+* Public websites
+* DNS
+* Certificate transparency
+* Public documents
+* Code repositories
+* Public metadata
+* Search engines
+
+---
+
+## OSINT Process
+
+```text
+Question
+   |
+   v
+Collect
+   |
+   v
+Verify
+   |
+   v
+Correlate
+   |
+   v
+Document
+```
+
+The most important step is verification.
+
+Finding something online doesn't automatically mean it is accurate.
+
+---
+
+# Vulnerability Management
+
+Not every vulnerability needs to be exploited.
+
+A mature security process involves:
+
+```text
+Asset inventory
+      |
+      v
+Identify vulnerabilities
+      |
+      v
+Validate findings
+      |
+      v
+Assess risk
+      |
+      v
+Remediate
+      |
+      v
+Verify the fix
+```
+
+---
+
+# CVE
+
+A CVE identifies a publicly documented vulnerability.
+
+Example concept:
+
+```text
+CVE
+ |
+ +-- Vulnerability identifier
+ +-- Description
+ +-- References
+```
+
+---
+
+# CWE
+
+CWE describes categories of software weaknesses.
+
+For example, injection weaknesses can be grouped into broader categories.
+
+---
+
+# CVSS
+
+CVSS is used to communicate vulnerability severity using a defined scoring system.
+
+A CVSS score is not the same thing as your organisation's overall business risk.
+
+Context matters.
+
+---
+
+# Threat Modelling
+
+Threat modelling asks:
+
+> What could go wrong, and what can we do about it?
+
+---
+
+## Assets
+
+Identify what needs protection.
+
+Examples:
+
+```text
+Customer data
+User accounts
+Payment information
+Source code
+API keys
+Servers
+```
+
+---
+
+## Trust Boundaries
+
+Consider:
+
+```text
+Internet
+   |
+   v
+Web Server
+   |
+   v
+Application
+   |
+   v
+Database
+```
+
+Each boundary is worth examining.
+
+---
+
+# STRIDE
+
+STRIDE is a threat-modelling framework.
+
+It covers:
+
+```text
+S = Spoofing
+T = Tampering
+R = Repudiation
+I = Information Disclosure
+D = Denial of Service
+E = Elevation of Privilege
+```
+
+Use frameworks to structure your thinking rather than blindly following a checklist.
+
+---
+
+# MITRE ATT&CK
+
+MITRE ATT&CK is a knowledge base describing adversary behaviour.
+
+It organises behaviour into tactics and techniques.
+
+A simplified sequence might look like:
+
+```text
+Initial Access
+      |
+Execution
+      |
+Persistence
+      |
+Privilege Escalation
+      |
+Credential Access
+      |
+Discovery
+      |
+Lateral Movement
+      |
+Collection
+      |
+Command and Control
+```
+
+Real incidents don't necessarily follow this exact order.
+
+ATT&CK can help defenders:
+
+* Describe behaviour
+* Map detections
+* Identify security gaps
+* Organise threat intelligence
+* Explain incidents
+
+---
+
+# Digital Forensics
+
+Digital forensics is the process of collecting and analysing digital evidence.
+
+A simplified workflow:
+
+```text
+Preserve
+   |
+   v
+Acquire
+   |
+   v
+Analyse
+   |
+   v
+Document
+   |
+   v
+Report
+```
+
+---
+
+# Disk Forensics
+
+Study:
+
+* Files
+* Filesystems
+* Metadata
+* Deleted files
+* Timestamps
+* Browser artefacts
+* Application data
+
+---
+
+# Memory Forensics
+
+RAM can contain information that never gets written to disk.
+
+Investigators may examine:
+
+* Processes
+* Network connections
+* Loaded modules
+* Memory artefacts
+
+---
+
+# Timeline Analysis
+
+Timeline analysis combines timestamps from multiple sources.
+
+For example:
+
+```text
+10:00  User logged in
+10:03  File created
+10:05  Process started
+10:06  Network connection
+10:08  File modified
+```
+
+The timeline helps investigators understand what happened.
+
+---
+
+# Forensics Tools
+
+Common tools include:
+
+* Autopsy
+* The Sleuth Kit
+* Volatility
+* FTK Imager
+* Plaso
+
+---
+
+# Malware Analysis
+
+Malware analysis attempts to understand what malicious software does.
+
+Never execute unknown malware on your normal computer.
+
+Use an isolated analysis environment.
+
+---
+
+# Static Analysis
+
+Static analysis examines a file without executing it.
+
+Look at:
+
+* File type
+* Hash
+* Strings
+* Imports
+* Metadata
+* Sections
+* Embedded resources
+
+---
+
+# Dynamic Analysis
+
+Dynamic analysis observes behaviour during execution in an isolated environment.
+
+Look at:
+
+* Processes
+* Files
+* Registry activity
+* Network connections
+* Persistence
+* Child processes
+
+---
+
+# Indicators of Compromise
+
+Examples include:
+
+```text
+File hashes
+IP addresses
+Domains
+File paths
+Registry keys
+Process names
+```
+
+An IOC isn't automatically proof of malicious activity.
+
+Context matters.
+
+---
+
+# YARA
+
+YARA is used to identify files based on patterns.
+
+A YARA rule can look for combinations of:
+
+* Strings
+* Byte patterns
+* File properties
+* Conditions
+
+Conceptually:
+
+```text
+File
+ |
+ v
+YARA rule
+ |
+ +-- Match
+ |
+ +-- No match
+```
+
+YARA is useful in malware analysis and detection engineering.
+
+---
+
+# Sigma
+
+Sigma is used to describe detection logic for logs in a vendor-neutral format.
+
+A simple idea:
+
+```text
+Event
+  |
+  v
+Log
+  |
+  v
+Sigma Rule
+  |
+  v
+Alert
+```
+
+Good detection rules should balance useful coverage with manageable false positives.
 
 ---
 
 # Defensive Security
 
-Cybersecurity isn't only about attacking.
+Security isn't only about breaking things.
 
-A good security professional should also understand how defenders detect and prevent attacks.
+A defender needs to understand:
 
-Learn:
-
-* Logging
-* Monitoring
-* Authentication
-* Access control
-* Firewalls
-* Endpoint security
-* Vulnerability management
-* Incident response
-* Threat modelling
-* Security policies
-* Backups
+* Prevention
+* Detection
+* Investigation
+* Containment
+* Recovery
 * Hardening
 
 ---
 
-## Logs
+# SIEM
 
-Logs tell you what happened.
+A SIEM collects and analyses security events.
 
-Examples:
+A basic architecture:
 
 ```text
-Login attempts
-Network connections
-Application errors
-Process creation
-File changes
-Authentication events
+Endpoints
+    |
+    v
+Logs
+    |
+    v
+SIEM
+    |
+    v
+Detection
+    |
+    v
+Investigation
 ```
-
-Learn how to read logs before trying to automate analysis.
-
----
-
-## SIEM
-
-A SIEM collects and analyses security-related data.
 
 Examples include:
 
@@ -1220,138 +2526,560 @@ Examples include:
 * Splunk
 * Elastic Security
 
-A simple workflow is:
+---
+
+# Detection Engineering
+
+A useful detection should answer:
 
 ```text
-Machine
-   |
-   v
-Logs
-   |
-   v
-SIEM
-   |
-   v
-Detection
-   |
-   v
-Investigation
+What happened?
+Why is it suspicious?
+What evidence supports it?
+What should an analyst investigate next?
 ```
+
+Avoid writing detections that alert on absolutely everything.
+
+Noise can be almost as problematic as missing useful events.
+
+---
+
+# Incident Response
+
+A common lifecycle is:
+
+```text
+Preparation
+    |
+Detection
+    |
+Analysis
+    |
+Containment
+    |
+Eradication
+    |
+Recovery
+    |
+Lessons Learned
+```
+
+The exact process varies between organisations.
+
+The important part is having a plan before something happens.
 
 ---
 
 # Reverse Engineering
 
-Reverse engineering is the process of analysing software to understand how it works.
-
-You may not have the source code.
-
-Instead, you might have:
-
-```text
-Executable
-    |
-    v
-Disassembler
-    |
-    v
-Assembly
-    |
-    v
-Understanding
-```
+Reverse engineering is about understanding software without relying entirely on its source code.
 
 Learn:
 
 * C
-* Assembly basics
+* Assembly
 * CPU registers
 * Memory
 * Stack
 * Heap
 * Functions
-* ELF files
-* PE files
-* Debuggers
-* Disassemblers
+* ELF
+* PE
+* Debugging
+
+---
+
+# Static Analysis
+
+Inspect a program without running it.
+
+Useful tools:
+
+* Ghidra
+* strings
+* objdump
+
+Questions to ask:
+
+```text
+What functions exist?
+What libraries are used?
+What strings are present?
+Where is the entry point?
+What inputs does the program process?
+```
+
+---
+
+# Dynamic Analysis
+
+Observe a program while it runs.
 
 Useful tools include:
 
-* Ghidra
 * GDB
-* strings
-* objdump
-* radare2
+* Debuggers
+* Process monitors
+* Network monitors
+
+---
+
+# Assembly
+
+Assembly is a human-readable representation of machine instructions.
+
+You may encounter instructions such as:
+
+```text
+mov
+push
+pop
+call
+cmp
+jmp
+ret
+```
+
+You don't need to memorise every instruction immediately.
+
+Learn how registers, memory and control flow work.
 
 ---
 
 # Binary Exploitation
 
-Binary exploitation is an advanced area.
+This is an advanced subject.
 
-Do not start here.
+Learn the foundations first.
 
-Learn programming, Linux, memory and assembly first.
+Prerequisites include:
 
-Topics include:
+* C
+* Linux
+* Assembly
+* Memory
+* Debugging
+* Processes
+* System calls
 
-* Buffer overflows
-* Stack memory
-* Heap memory
-* Memory corruption
+---
+
+## Memory
+
+Understand:
+
+```text
+Code
+Global data
+Heap
+Stack
+Libraries
+```
+
+---
+
+## Security Protections
+
+Learn what these are designed to prevent:
+
 * ASLR
 * DEP/NX
 * Stack canaries
-* Return-oriented programming
-* Debugging
+* PIE
+* RELRO
+* Control-flow protections
 
-The goal isn't to memorise exploitation tricks.
+Practise using purpose-built CTF binaries and local vulnerable programs.
 
-The goal is to understand what the computer is doing at a low level.
+---
+
+# Cloud Security
+
+Cloud environments introduce new security boundaries.
+
+Learn:
+
+* Identity
+* Permissions
+* Storage
+* Networking
+* Logging
+* Secrets
+* Configuration
+
+---
+
+# Shared Responsibility
+
+Cloud providers secure certain parts of the underlying infrastructure.
+
+Customers are still responsible for many things, including:
+
+* Identity
+* Permissions
+* Data
+* Applications
+* Configuration
+* Secrets
+
+The exact split depends on the service.
+
+---
+
+# AWS
+
+Learn:
+
+* IAM
+* EC2
+* S3
+* VPC
+* Security Groups
+* CloudTrail
+* KMS
+* Secrets management
+
+---
+
+# Azure
+
+Learn:
+
+* Microsoft Entra ID
+* Virtual Networks
+* Network Security Groups
+* Storage
+* Key Vault
+* Defender for Cloud
+
+---
+
+# Common Cloud Security Problems
+
+* Excessive permissions
+* Public storage
+* Exposed credentials
+* Weak identity controls
+* Missing logging
+* Poor network segmentation
+
+---
+
+# Container Security
+
+Containers package applications and their dependencies.
+
+A container is not simply a small virtual machine.
+
+Learn:
+
+* Images
+* Containers
+* Dockerfiles
+* Registries
+* Volumes
+* Networks
+* Secrets
+* Privileges
+
+---
+
+# Docker Security
+
+Watch for:
+
+* Running containers unnecessarily as root
+* Outdated images
+* Secrets inside images
+* Untrusted images
+* Exposed Docker interfaces
+* Excessive filesystem access
+
+---
+
+# Kubernetes
+
+Once Docker makes sense, learn:
+
+* Pods
+* Services
+* Deployments
+* Namespaces
+* RBAC
+* Service accounts
+* Network policies
+* Secrets
+* Admission controls
+
+Use local clusters for learning.
+
+---
+
+# Mobile Security
+
+Mobile security covers applications, permissions, storage, communication and platform security.
+
+---
+
+# Android
+
+Learn:
+
+* APKs
+* Activities
+* Services
+* Intents
+* Permissions
+* ADB
+* Application storage
+
+Useful tools:
+
+* JADX
+* MobSF
+* Android emulators
+
+---
+
+# iOS
+
+Learn:
+
+* App bundles
+* Sandboxing
+* Entitlements
+* Code signing
+* Secure storage
+* Network security
+
+Practise with your own applications, test applications and emulators.
+
+---
+
+# IoT Security
+
+IoT combines:
+
+* Hardware
+* Embedded software
+* Networking
+* Firmware
+* Physical interfaces
+
+Learn:
+
+* Embedded Linux
+* Firmware
+* UART
+* SPI
+* I2C
+* JTAG
+* Bootloaders
+* Device authentication
+* Firmware updates
+* Default credentials
+
+---
+
+# Firmware Analysis
+
+A basic workflow:
+
+```text
+Firmware
+   |
+   v
+Identify format
+   |
+   v
+Extract contents
+   |
+   v
+Inspect filesystem
+   |
+   v
+Analyse binaries
+   |
+   v
+Inspect configuration
+   |
+   v
+Document findings
+```
+
+Use hardware you own.
 
 ---
 
 # CTFs and Practice
 
-CTFs are one of the best ways to practise cybersecurity.
-
-They let you work on realistic problems without attacking random systems.
-
-Good areas to practise include:
-
-```text
-Linux
-Networking
-Web Security
-Cryptography
-Forensics
-Reverse Engineering
-Binary Exploitation
-OSINT
-```
-
-Popular learning platforms include:
-
-* OverTheWire
-* TryHackMe
-* Hack The Box
-* PortSwigger Web Security Academy
-* picoCTF
-* pwn.college
+CTFs are a great way to practise without attacking real systems.
 
 ---
 
-# Useful Tools
+## OverTheWire
 
-Here's a basic toolkit to become familiar with.
+Good for:
+
+* Linux
+* Command line
+* Basic security concepts
+
+---
+
+## TryHackMe
+
+Useful for guided cybersecurity learning and structured rooms.
+
+---
+
+## Hack The Box
+
+Useful for more realistic machines and challenges.
+
+---
+
+## PortSwigger Web Security Academy
+
+Particularly useful for:
+
+* XSS
+* SQL injection
+* Authentication
+* Access control
+* SSRF
+* Other web vulnerabilities
+
+---
+
+## picoCTF
+
+Useful for beginner-friendly challenges across:
+
+* Web
+* Crypto
+* Forensics
+* Reverse engineering
+* General security
+
+---
+
+# Projects
+
+Projects turn knowledge into actual experience.
+
+---
+
+## Beginner Projects
+
+### Linux Home Lab
+
+Create a Linux VM and document:
+
+* Users
+* Groups
+* Permissions
+* Services
+* Networking
+* Logs
+
+### Python Log Parser
+
+Create a program that reads a local log and summarises interesting events.
+
+### Packet Analysis
+
+Capture traffic from your own lab and explain what each connection represents.
+
+---
+
+## Intermediate Projects
+
+### Vulnerable Web Application
+
+Build a deliberately vulnerable application.
+
+Document:
+
+```text
+Vulnerability
+    |
+Cause
+    |
+Impact
+    |
+Detection
+    |
+Fix
+    |
+Verification
+```
+
+Include vulnerabilities such as XSS or SQL injection only in your controlled application.
+
+### Windows Lab
+
+Build a small Windows/Active Directory environment.
+
+Document:
+
+* Users
+* Groups
+* Policies
+* Authentication
+* Logging
+* Security controls
+
+### Detection Lab
+
+Generate benign test events and create detections for them.
+
+---
+
+## Advanced Projects
+
+### Malware Analysis Lab
+
+Use safe training samples in an isolated environment.
+
+Document:
+
+* Static observations
+* Dynamic observations
+* Network behaviour
+* Indicators
+* Detection ideas
+
+### Reverse Engineering
+
+Write a small C program.
+
+Compile it.
+
+Then reverse engineer your own binary.
+
+### Build a CTF
+
+Create challenges covering:
+
+* Linux
+* Web
+* Crypto
+* Forensics
+* Reverse engineering
+
+---
+
+# Tool Reference
 
 | Tool            | Purpose                                  | Level        |
 | --------------- | ---------------------------------------- | ------------ |
 | Nmap            | Network/service discovery                | Beginner     |
 | Wireshark       | Packet analysis                          | Beginner     |
-| tcpdump         | Command-line packet capture              | Beginner     |
-| Burp Suite      | Web application testing                  | Beginner     |
-| OWASP ZAP       | Web application testing                  | Beginner     |
+| tcpdump         | Packet capture                           | Beginner     |
+| Burp Suite      | Web testing                              | Beginner     |
+| OWASP ZAP       | Web testing                              | Beginner     |
 | Aircrack-ng     | Wireless security assessment             | Intermediate |
 | Airgeddon       | Wireless auditing framework              | Intermediate |
 | Fern            | Wireless auditing GUI                    | Beginner     |
@@ -1360,24 +3088,176 @@ Here's a basic toolkit to become familiar with.
 | GDB             | Debugging                                | Advanced     |
 | Hashcat         | Password auditing                        | Intermediate |
 | John the Ripper | Password auditing                        | Intermediate |
-| Gobuster        | Content/service discovery                | Intermediate |
+| Gobuster        | Content discovery                        | Intermediate |
 | Amass           | Asset discovery                          | Intermediate |
 | Nikto           | Web server assessment                    | Beginner     |
 | SQLMap          | SQL injection testing in authorised labs | Intermediate |
+| Autopsy         | Digital forensics                        | Intermediate |
+| Volatility      | Memory forensics                         | Advanced     |
+| YARA            | File pattern matching                    | Intermediate |
+| Sigma           | Detection rules                          | Intermediate |
 
-Tools are not skills.
+---
 
-Knowing what a tool does, why you would use it and how to interpret its output is much more important than having 500 tools installed.
+# Troubleshooting
+
+Cybersecurity tools won't always work.
+
+That's normal.
+
+When something fails, don't immediately reinstall everything.
+
+Work backwards.
+
+```text
+What did I expect?
+       |
+       v
+What actually happened?
+       |
+       v
+What changed?
+       |
+       v
+Is the hardware supported?
+       |
+       v
+Is the driver working?
+       |
+       v
+Is the interface configured?
+       |
+       v
+Is the command correct?
+       |
+       v
+Check logs
+```
+
+---
+
+## Wireless Adapter Not Detected
+
+Check:
+
+```text
+USB connection
+Driver
+Chipset
+Interface name
+Kernel support
+Monitor-mode support
+```
+
+Don't assume every USB WiFi adapter supports every wireless testing feature.
+
+---
+
+## Port Doesn't Appear Open
+
+Possible explanations include:
+
+* Service isn't running
+* Firewall blocks it
+* Wrong interface
+* Wrong IP
+* Service listens only locally
+* Network isolation
+* Scan configuration
+
+Don't immediately assume the target is broken.
+
+---
+
+## Web Request Doesn't Work
+
+Check:
+
+```text
+URL
+HTTP method
+Headers
+Cookies
+Parameters
+Body
+Authentication
+Redirects
+TLS
+Server response
+```
+
+Burp Suite can help you understand the request.
+
+---
+
+# Common Beginner Mistakes
+
+<details>
+<summary>Installing Kali and thinking you're finished</summary>
+
+Kali is an operating system.
+
+It doesn't teach you networking, Linux or security automatically.
+
+</details>
+
+<details>
+<summary>Copying commands without understanding them</summary>
+
+If you cannot explain what a command does, learn it before moving on.
+
+</details>
+
+<details>
+<summary>Trying to learn everything at once</summary>
+
+Cybersecurity is enormous.
+
+Pick one topic and become comfortable with the fundamentals before adding another.
+
+</details>
+
+<details>
+<summary>Ignoring networking</summary>
+
+Networking knowledge makes almost every other security subject easier.
+
+</details>
+
+<details>
+<summary>Only learning offensive security</summary>
+
+Learn defence too.
+
+Understanding logs, detection and hardening makes security knowledge much more complete.
+
+</details>
+
+<details>
+<summary>Collecting tools instead of knowledge</summary>
+
+Having 300 tools installed isn't particularly useful if you don't understand what any of them are doing.
+
+</details>
 
 ---
 
 # Learning Roadmap
 
-If you're completely new, don't try to learn everything at once.
+## Stage 1: Computer Fundamentals
 
-Use this order.
+Learn:
 
-## Stage 1 — Linux
+```text
+CPU
+RAM
+Storage
+Processes
+Operating systems
+Filesystems
+```
+
+## Stage 2: Linux
 
 Learn:
 
@@ -1386,15 +3266,14 @@ Files
 Permissions
 Users
 Processes
+Services
 Packages
-Networking
+Logs
 Bash
 SSH
 ```
 
----
-
-## Stage 2 — Networking
+## Stage 3: Networking
 
 Learn:
 
@@ -1405,68 +3284,57 @@ TCP
 UDP
 DNS
 DHCP
-HTTP
-HTTPS
 Ports
 Subnets
 Routing
 NAT
 Firewalls
+HTTP
+HTTPS
 ```
 
----
+## Stage 4: Programming
 
-## Stage 3 — Programming
-
-Start with:
+Learn:
 
 ```text
 Python
 Bash
-Basic JavaScript
-Basic SQL
-Basic HTML
+JavaScript basics
+HTML basics
+SQL
+C basics
+Git
 ```
 
-You don't need to become a software engineer.
-
-You just need to be comfortable reading and writing code.
-
----
-
-## Stage 4 — Security Fundamentals
+## Stage 5: Security Fundamentals
 
 Learn:
 
 ```text
 Authentication
 Authorisation
-Encryption
-Hashing
-Vulnerabilities
-Threat modelling
-Logging
+Cryptography
 Least privilege
-Defence in depth
+Threat modelling
+Vulnerabilities
+Risk
+Logging
 ```
 
----
-
-## Stage 5 — Recon and Enumeration
+## Stage 6: Recon and Enumeration
 
 Learn:
 
 ```text
+Recon
 Nmap
-DNS enumeration
+DNS
 Service enumeration
 HTTP enumeration
-Basic OSINT
 ```
 
----
-
-## Stage 6 — Web Security
+## Stage 7: Web Security
 
 Learn:
 
@@ -1475,47 +3343,38 @@ HTTP
 Cookies
 Sessions
 Authentication
-Access control
+Authorisation
 XSS
 SQL injection
 CSRF
 SSRF
 Path traversal
-File upload vulnerabilities
-Security headers
-APIs
+File uploads
+API security
 ```
 
-Use dedicated web-security labs.
-
----
-
-## Stage 7 — Wireless
+## Stage 8: Wireless
 
 Learn:
 
 ```text
-802.11 basics
+802.11
 WiFi authentication
 WPA2
 WPA3
-Packet capture
 Monitor mode
+Packet capture
 Aircrack-ng
 Airgeddon
 Fern
 ```
 
-Practise only against your own lab network.
-
----
-
-## Stage 8 — Windows
+## Stage 9: Windows
 
 Learn:
 
 ```text
-Windows administration
+Windows
 PowerShell
 Users
 Groups
@@ -1528,31 +3387,45 @@ SMB
 Group Policy
 ```
 
----
+## Stage 10: Defensive Security
 
-## Stage 9 — Advanced Topics
+Learn:
 
-Once your fundamentals are solid:
+```text
+SIEM
+Logging
+Detection
+YARA
+Sigma
+Incident response
+Vulnerability management
+Threat modelling
+MITRE ATT&CK
+```
+
+## Stage 11: Advanced Security
+
+Learn:
 
 ```text
 Reverse engineering
 Assembly
 Binary exploitation
 Malware analysis
-Exploit development
-Advanced Active Directory
+Memory forensics
 Cloud security
 Container security
 Mobile security
+IoT security
 ```
 
 ---
 
-# A Simple Weekly Plan
+# Suggested Weekly Schedule
 
-If you're learning alongside school, work or life, you don't need to spend twelve hours a day on it.
+You don't need to spend twelve hours every day learning this.
 
-Something like this is enough:
+A realistic schedule could be:
 
 ```text
 Monday
@@ -1568,94 +3441,211 @@ Thursday
 Web security
 
 Friday
-Linux / networking revision
+Revision
 
 Saturday
-CTF or security lab
+CTF / Lab
 
 Sunday
-Review notes
+Notes and review
 ```
 
-The important bit is consistency.
-
-Doing two hours every week for a year will teach you far more than downloading Kali, watching three "TOP 10 HACKING TOOLS" videos and never touching it again.
+Consistency matters more than trying to cram everything into one weekend.
 
 ---
 
-# Common Beginner Mistakes
+# Glossary
 
-<details>
-<summary>Installing Kali and thinking you're a hacker</summary>
+| Term  | Meaning                                               |
+| ----- | ----------------------------------------------------- |
+| ACL   | Access Control List                                   |
+| API   | Interface allowing software to communicate            |
+| ARP   | Protocol used for IP-to-link-layer address resolution |
+| CVE   | Identifier for a publicly documented vulnerability    |
+| CWE   | Category of software weakness                         |
+| CVSS  | Vulnerability severity scoring system                 |
+| DNS   | Domain Name System                                    |
+| EDR   | Endpoint Detection and Response                       |
+| IAM   | Identity and Access Management                        |
+| IOC   | Indicator of Compromise                               |
+| JWT   | JSON Web Token                                        |
+| LDAP  | Directory access protocol                             |
+| MFA   | Multi-Factor Authentication                           |
+| NAT   | Network Address Translation                           |
+| OSINT | Open-Source Intelligence                              |
+| RBAC  | Role-Based Access Control                             |
+| SIEM  | Security Information and Event Management             |
+| SMB   | Server Message Block                                  |
+| SSO   | Single Sign-On                                        |
+| TLS   | Transport Layer Security                              |
+| TTP   | Tactics, Techniques and Procedures                    |
+| VM    | Virtual Machine                                       |
+| VPN   | Virtual Private Network                               |
+| XSS   | Cross-Site Scripting                                  |
+| CTF   | Capture The Flag                                      |
+| SSRF  | Server-Side Request Forgery                           |
+| CSRF  | Cross-Site Request Forgery                            |
+| SQLi  | SQL Injection                                         |
+| API   | Application Programming Interface                     |
+| KDC   | Key Distribution Center                               |
+| PE    | Portable Executable                                   |
+| ELF   | Executable and Linkable Format                        |
 
-Installing a security distro doesn't give you cybersecurity knowledge.
+---
 
-It's just an operating system with a collection of tools.
+# Security Principles Worth Remembering
 
-Learn the fundamentals underneath the tools.
+## Least Privilege
 
-</details>
+Give users and programs only the access they need.
 
-<details>
-<summary>Copying commands without understanding them</summary>
+## Defence in Depth
 
-If you copy a command from a tutorial, stop and understand each part.
+Don't depend on one security control.
 
-Ask:
+Use multiple layers.
 
 ```text
-What does this command do?
-Why am I running it?
-What does the output mean?
-What could go wrong?
+Authentication
+      +
+Authorisation
+      +
+Network controls
+      +
+Endpoint security
+      +
+Logging
+      +
+Monitoring
 ```
 
-</details>
+## Secure by Default
 
-<details>
-<summary>Trying to learn everything at once</summary>
+Systems should start in a reasonably secure configuration rather than requiring users to discover every security setting themselves.
 
-Cybersecurity is massive.
+## Fail Safely
 
-You do not need to learn Linux, web security, malware analysis, WiFi, Active Directory, reverse engineering and cloud security in your first month.
+When something goes wrong, the system should avoid exposing sensitive information or granting unintended access.
 
-Pick one subject and get comfortable with it.
+## Assume Breach
 
-</details>
+Security teams should consider what happens if one layer is compromised.
 
-<details>
-<summary>Ignoring networking</summary>
+That means thinking about:
 
-This one will catch you out eventually.
+* Segmentation
+* Monitoring
+* Least privilege
+* Backups
+* Detection
+* Recovery
 
-Learn networking properly.
+---
 
-It makes almost every other security topic easier.
+# What To Do When You Get Stuck
 
-</details>
+Getting stuck is normal.
 
-<details>
-<summary>Only learning offensive security</summary>
+Before searching for the exact answer, try:
 
-Learn defence too.
+1. Read the error.
+2. Identify the unfamiliar term.
+3. Check documentation.
+4. Reproduce the problem.
+5. Simplify the setup.
+6. Check logs.
+7. Search for the underlying concept.
+8. Try again.
 
-Understanding how defenders detect attacks makes you better at understanding attacks in the first place.
+Don't only search:
 
-</details>
+```text
+"how do I get tool X to work"
+```
+
+Try understanding:
+
+```text
+"why does this error happen"
+```
+
+That difference matters.
+
+---
+
+# How To Take Good Notes
+
+For each subject, keep notes in this format:
+
+```text
+Topic:
+
+What is it?
+
+Why does it exist?
+
+How does it work?
+
+What can go wrong?
+
+How can it be detected?
+
+How can it be prevented?
+
+What did I practise?
+
+What did I learn?
+```
+
+This makes your notes much more useful later.
+
+---
+
+# How To Write Security Reports
+
+A basic report should explain:
+
+```text
+Finding
+   |
+Description
+   |
+Evidence
+   |
+Impact
+   |
+Affected component
+   |
+Recommendation
+   |
+Verification
+```
+
+Avoid writing reports that simply say:
+
+> "This is vulnerable."
+
+Explain:
+
+* What happened
+* Why it happened
+* What could happen because of it
+* How to fix it
+* How you confirmed the fix
 
 ---
 
 # Final Advice
 
-Don't worry about trying to look like a hacker.
+Don't worry about looking like a hacker.
 
-You don't need a black terminal, a ridiculous username and twelve monitors.
+You don't need a ridiculous terminal setup or twelve monitors.
 
 You need curiosity.
 
 Learn how something works.
 
-Break it in a lab.
+Break it in your lab.
 
 Figure out why it broke.
 
@@ -1663,11 +3653,9 @@ Fix it.
 
 Then try again.
 
-That's basically the entire game.
-
 The tools will change.
 
-The Linux distributions will change.
+Linux distributions will change.
 
 Vulnerabilities will change.
 
@@ -1677,25 +3665,14 @@ If you understand operating systems, networking, programming, authentication, we
 
 Most importantly, practise legally.
 
-Build your own lab, use CTFs and training platforms, and only test systems when you have permission.
+Build your own lab.
+
+Use CTFs.
+
+Use training applications.
+
+Test systems only when you have permission.
 
 Learn the fundamentals first.
 
 The fancy tools can wait.
-
----
-
-## Useful Official Documentation
-
-For keeping this guide up to date, check the official documentation for the projects and tools you use.
-
-* ParrotOS documentation
-* Kali Linux documentation
-* OWASP documentation
-* Aircrack-ng documentation
-* Burp Suite documentation
-* Wireshark documentation
-* Ghidra documentation
-* Nmap documentation
-
-This README is intended as a learning roadmap rather than a replacement for the documentation of individual projects.
