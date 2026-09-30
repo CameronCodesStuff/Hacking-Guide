@@ -3,6 +3,7 @@
   <h2>Hacking Guide</h2>
 </div>
 
+## Table of Contents
 * [Jump to Advanced Usage](#advanced-section)
 
 ---
