@@ -1,9 +1,11 @@
-<video src="videos/typewriter-cameroncodesstuff.mp4" controls></video>
+# Hacking Guide
 
-<br>
+## Typewriter
 
-<video src="videos/pixelate-hacking-guide.mp4" controls></video>
+[▶️ Play typewriter-cameroncodesstuff.mp4](videos/typewriter-cameroncodesstuff.mp4)
 
-<br>
+## Videos
 
-<video src="videos/typewriter-cameroncodesstuff.mp4" controls></video>
+[▶️ Play pixelate-hacking-guide.mp4](videos/pixelate-hacking-guide.mp4)
+
+[▶️ Play typewriter-cameroncodesstuff.mp4](videos/typewriter-cameroncodesstuff.mp4)
