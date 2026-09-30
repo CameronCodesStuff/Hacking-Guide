@@ -11,7 +11,7 @@
 <!-- You can add an id to any tag or heading -->
 <h2 id="distro">Distro</h2>
 
-# Linux Distros for Hacking
+### Linux Distros for Hacking
 
 Linux has loads of distros suited to cybersecurity, penetration testing, privacy, development, and everyday use. Here are a few popular ones:
 
